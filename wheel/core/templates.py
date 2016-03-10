@@ -16,4 +16,7 @@ def render_template(template, theme=None, **context):
     if sys_theme:
         theme.append(sys_theme)
 
+    print '----------------------------------------'
+    print template, theme, context
+    print '----------------------------------------'
     return render_theme_template(theme, template, **context)

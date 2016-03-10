@@ -110,9 +110,7 @@ def static_file_url(theme, filename, external=False, *args, **kwargs):
     """
     if isinstance(theme, Theme):
         theme = theme.identifier
-    #return url_for('_themes.static', themeid=theme, filename=filename,
-    #               _external=external, *args, **kwargs)
-    return url_for('static', themeid=theme, filename=filename,
+    return url_for('_themes.static', themeid=theme, filename=filename,
                    _external=external, *args, **kwargs)
 
 
