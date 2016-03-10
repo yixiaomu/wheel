@@ -39,4 +39,4 @@ def configure(app, db):
             populate.reset()
             Config.objects.delete()
         else:
-            Quokka.objects.create(slug="is_installed")
+            Wheel.objects.create(slug="is_installed")

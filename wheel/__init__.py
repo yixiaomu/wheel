@@ -18,7 +18,6 @@ def create_app_base(config=None, test=False, admin_instance=None, **settings):
     if test or app.config.get('TESTING'):
         app.testing = True
 
-    print app.config
     return app
 
 

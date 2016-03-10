@@ -60,8 +60,8 @@ class Populate(object):
     def create_initial_superuser(self):
         password = self.generate_random_password()
         user_data = {'name': 'wheel_admin',
-                     'email': 'admin@wheelcmsproject.org',
-                     'gravatar_email': 'seraphwlq@gmail.com',
+                     'email': 'seraphwlq@gmail.com',
+                     'gravatar_email': 'seraphln@gmail.com',
                      'password': password[:6],
                      'roles': ['admin'],
                      'bio': u"Wheel Example Admin",
@@ -73,8 +73,12 @@ class Populate(object):
                                 'order': 0}],
                 }
 
-        user_obj = self.create_user(user_data)
-        return user_data, user_obj
+        try:
+            user_obj = self.create_user(user_data)
+            print user_data, user_obj
+            return user_data, user_obj
+        except:
+            pass
 
     def load_fixtures(self):
         filepath = self.kwargs.get('filepath',

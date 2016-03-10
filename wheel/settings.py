@@ -216,8 +216,8 @@ SECURITY_RECAPTCHA_ENABLED = False
 Internationalization for Flask-Admin
 if want to use in your site home page, read babel docs.
 """
-BABEL_LANGUAGES = ['en', 'pt-br']
-BABEL_DEFAULT_LOCALE = 'en'
+BABEL_LANGUAGES = ['en', 'pt-br', 'zh_CN']
+BABEL_DEFAULT_LOCALE = 'zh_CN'
 
 
 # WTForms

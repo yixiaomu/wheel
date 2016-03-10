@@ -151,8 +151,7 @@ class User(db.DynamicDocument, ThemeChanger, HasCustomValue, UserMixin):
             roles=roles,
             username=username,
             *args,
-            **kwargs
-        )
+            **kwargs)
 
     @property
     def display_name(self):

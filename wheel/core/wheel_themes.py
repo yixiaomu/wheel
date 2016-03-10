@@ -110,7 +110,9 @@ def static_file_url(theme, filename, external=False, *args, **kwargs):
     """
     if isinstance(theme, Theme):
         theme = theme.identifier
-    return url_for('_themes.static', themeid=theme, filename=filename,
+    #return url_for('_themes.static', themeid=theme, filename=filename,
+    #               _external=external, *args, **kwargs)
+    return url_for('static', themeid=theme, filename=filename,
                    _external=external, *args, **kwargs)
 
 
@@ -329,12 +331,10 @@ class ThemeTemplateLoader(BaseLoader):
 
 #########################################################################
 
-themes_blueprint = Blueprint('_themes', __name__, url_prefix='/_themes')
+themes_blueprint = Blueprint('_themes', __name__, url_prefix='/')
 themes_blueprint.jinja_loader = ThemeTemplateLoader(True)
-themes_blueprint.add_url_rule(
-    '/<themeid>/<path:filename>', 'static',
-    view_func=static
-)
+themes_blueprint.add_url_rule('/<themeid>/<path:filename>', 'static',
+                              view_func=static)
 
 
 class Themes(object):

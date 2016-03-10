@@ -40,7 +40,7 @@ modules. The below _n below is to avoid pep8 error
 _n  # noqa
 
 
-class QuokkaAdmin(Admin):
+class WheelAdmin(Admin):
     registered = []
 
     def register(self, model, view=None, *args, **kwargs):
@@ -55,7 +55,7 @@ class QuokkaAdmin(Admin):
 
 def create_admin(app=None):
     index_view = IndexView()
-    return QuokkaAdmin(app, index_view=index_view)
+    return WheelAdmin(app, index_view=index_view)
 
 
 def configure_admin(app, admin):  # noqa
@@ -67,13 +67,9 @@ def configure_admin(app, admin):  # noqa
             del admin._views[0]
         admin._views.insert(0, admin.index_view)
 
-    admin_config = app.config.get(
-        'ADMIN',
-        {
-            'name': 'Quokka Admin',
-            'url': '/admin'
-        }
-    )
+    admin_config = app.config.get('ADMIN',
+                                  {'name': 'Wheel Admin',
+                                   'url': '/admin'})
 
     for k, v in list(admin_config.items()):
         setattr(admin, k, v)
@@ -109,16 +105,13 @@ def configure_admin(app, admin):  # noqa
                     category=_l(entry['category']),
                     endpoint=entry['endpoint'],
                     roles_accepted=entry.get('roles_accepted'),
-                    editable_extensions=entry.get('editable_extensions')
-                )
-            )
+                    editable_extensions=entry.get('editable_extensions')))
         except Exception as e:
             app.logger.info(e)
 
     # register all themes in file manager
     for k, theme in app.theme_manager.themes.items():
         try:
-
             if k == app.config.get('DEFAULT_THEME'):
                 suffix = "(Site theme)"
             elif k == app.config.get('ADMIN_THEME'):

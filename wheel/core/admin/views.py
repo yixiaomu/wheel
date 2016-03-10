@@ -21,8 +21,8 @@ from wheel.core.admin.models import PublishActions
 
 
 class IndexView(BaseIndexView):
-    roles_accepted = ('admin', 'editor', 'moderator', 'writer', 'staff',
-                      'author')
+    roles_accepted = ('admin', 'editor', 'moderator',
+                      'writer', 'staff', 'author')
 
     @expose('/')
     def index(self):
