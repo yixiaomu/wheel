@@ -73,12 +73,9 @@ class Populate(object):
                                 'order': 0}],
                 }
 
-        try:
-            user_obj = self.create_user(user_data)
-            print user_data, user_obj
-            return user_data, user_obj
-        except:
-            pass
+        user_obj = self.create_user(user_data)
+        print user_data, user_obj
+        return user_data, user_obj
 
     def load_fixtures(self):
         filepath = self.kwargs.get('filepath',

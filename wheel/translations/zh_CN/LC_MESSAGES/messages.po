@@ -1,11 +1,11 @@
-# Chinese (Simplified, China) translations for quokka.
+# Chinese (Simplified, China) translations for wheel.
 # Copyright (C) 2015 ORGANIZATION
-# This file is distributed under the same license as the quokka project.
+# This file is distributed under the same license as the wheel project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: quokka VERSION\n"
+"Project-Id-Version: wheel VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-07-17 13:31+0800\n"
 "PO-Revision-Date: 2015-07-17 13:32+0800\n"
