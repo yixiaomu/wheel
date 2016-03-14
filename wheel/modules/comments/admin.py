@@ -21,5 +21,6 @@ class CommentAdmin(ModelAdmin):
     }
 
 
-admin.register(Comment, CommentAdmin, category=_l('Content'),
-               name=_l("Comments"))
+#admin.register(Comment, CommentAdmin, category=_l('Content'),
+#               name=_l("Comments"))
+admin.register(Comment, CommentAdmin, category=u'内容', name=u"评论")

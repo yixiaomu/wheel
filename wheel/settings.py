@@ -97,8 +97,8 @@ DEFAULT_EDITABLE_EXTENSIONS = (
 
 FILE_ADMIN = [
     {
-        "name": "Static files",
-        "category": "Files",
+        "name": u"静态文件",
+        "category": "文件配置",
         "path": STATIC_ROOT,
         "url": "/static/",  # create nginx rule
         "endpoint": "static_files",
@@ -106,8 +106,8 @@ FILE_ADMIN = [
         "editable_extensions": DEFAULT_EDITABLE_EXTENSIONS
     },
     {
-        "name": "Media files",
-        "category": "Files",
+        "name": "资源文件",
+        "category": "文件配置",
         "path": MEDIA_ROOT,
         "url": "/mediafiles/",  # Create nginx rule
         "endpoint": "media_files",

@@ -153,8 +153,9 @@ def configure_admin(app, admin):  # noqa
             )
 
     # adding views
-    admin.add_view(InspectorView(category=_l("Settings"),
-                                 name=_l("Inspector")))
+    # TODO uncomment
+    #admin.add_view(InspectorView(category=_l("Settings"),
+    #                             name=_l("Inspector")))
 
     # adding extra views
     extra_views = app.config.get('ADMIN_EXTRA_VIEWS', [])
@@ -167,28 +168,50 @@ def configure_admin(app, admin):  # noqa
         )
 
     # adding model views
+    #admin.register(
+    #    Link,
+    #    LinkAdmin,
+    #    category=_l("Content"),
+    #    name=_l("Link")
+    #)
+    #admin.register(Config,
+    #               ConfigAdmin,
+    #               category=_l("Settings"),
+    #               name=_l("Config"))
+    #admin.register(SubContentPurpose,
+    #               SubContentPurposeAdmin,
+    #               category=_l("Settings"),
+    #               name=_l("Sub content purposes"))
+    #admin.register(ChannelType, ChannelTypeAdmin,
+    #               category=_l("Settings"), name=_l("Channel type"))
+    #admin.register(ContentTemplateType,
+    #               ContentTemplateTypeAdmin,
+    #               category=_l("Settings"),
+    #               name=_l("Template type"))
+    #admin.register(Channel, ChannelAdmin,
+    #               category=_l("Content"), name=_l("Channel"))
     admin.register(
         Link,
         LinkAdmin,
-        category=_l("Content"),
-        name=_l("Link")
+        category=u"内容",
+        name=u"链接"
     )
     admin.register(Config,
                    ConfigAdmin,
-                   category=_l("Settings"),
-                   name=_l("Config"))
+                   category=u"配置",
+                   name=u"站点配置")
     admin.register(SubContentPurpose,
                    SubContentPurposeAdmin,
-                   category=_l("Settings"),
-                   name=_l("Sub content purposes"))
+                   category=u"配置",
+                   name=u"子内容用途")
     admin.register(ChannelType, ChannelTypeAdmin,
-                   category=_l("Settings"), name=_l("Channel type"))
+                   category=u"配置", name=u"频道类型")
     admin.register(ContentTemplateType,
                    ContentTemplateTypeAdmin,
-                   category=_l("Settings"),
-                   name=_l("Template type"))
+                   category=u"配置",
+                   name=u"模板类型")
     admin.register(Channel, ChannelAdmin,
-                   category=_l("Content"), name=_l("Channel"))
+                   category=u"内容", name=u"频道")
 
     # avoid registering twice
     if admin.app is None:

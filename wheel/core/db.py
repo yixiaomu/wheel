@@ -3,7 +3,7 @@
 
 
 from flask.ext.mongoengine import MongoEngine
-from .fields import ListField
+from wheel.core.fields import ListField
 
 db = MongoEngine()
 db.ListField = ListField

@@ -159,9 +159,15 @@ class MediaGalleryAdmin(BaseContentAdmin):
     }
 
 
-admin.register(File, FileAdmin, category=_l('Media'), name=_l("File"))
-admin.register(Video, VideoAdmin, category=_l('Media'), name=_l("Video"))
-admin.register(Audio, AudioAdmin, category=_l('Media'), name=_l("Audio"))
-admin.register(Image, ImageAdmin, category=_l('Media'), name=_l("Image"))
+#admin.register(File, FileAdmin, category=_l('Media'), name=_l("File"))
+#admin.register(Video, VideoAdmin, category=_l('Media'), name=_l("Video"))
+#admin.register(Audio, AudioAdmin, category=_l('Media'), name=_l("Audio"))
+#admin.register(Image, ImageAdmin, category=_l('Media'), name=_l("Image"))
+#admin.register(MediaGallery, MediaGalleryAdmin,
+#               category=_l('Content'), name=_l("Media Gallery"))
+admin.register(File, FileAdmin, category=u"多媒体", name=u"文件")
+admin.register(Video, VideoAdmin, category=u'多媒体', name=u"视频")
+admin.register(Audio, AudioAdmin, category=u'多媒体', name=u"音频")
+admin.register(Image, ImageAdmin, category=u'多媒体', name=u"图片")
 admin.register(MediaGallery, MediaGalleryAdmin,
-               category=_l('Content'), name=_l("Media Gallery"))
+               category=u'内容', name=u"图片相册")

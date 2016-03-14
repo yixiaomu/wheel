@@ -35,8 +35,8 @@ class Config(HasCustomValue, ContentFormat, Publishable, db.DynamicDocument):
                 ret.update({item.name: item.value for item in instance.values})
         else:
             try:
-                ret = instance.values.get(name=name).value
-            except (MultipleObjectsReturned, AttributeError):
+                ret = filter(lambda x: x.name==name, instance.values)[0].value
+            except (MultipleObjectsReturned, AttributeError, IndexError):
                 ret = None
 
         if not ret and group == 'settings' and name is not None:

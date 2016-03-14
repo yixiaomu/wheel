@@ -139,26 +139,7 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
 {% macro load_share_area(content) %}
 
 <div class="sharing">
-  <p class="post-meta">
-      // Share
-  </p>
-    <!-- Facebook sharing -->
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId={{ Config.get('site', 'facebook_app_id', '') }}&version=v2.0";
-    fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-    <div class="fb-share-button" data-href="{{ content.get_http_url() }}" data-type="button_count"></div>
 
-    <!-- Google+ sharing -->
-    <div class="g-plus alinhar" data-action="share" data-annotation="bubble" data-href="{{ content.get_http_url() }}"></div>
-
-    <!-- Twitter sharing -->
-    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" style="margin-bottom: -4px !important;">Tweetar</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </div>
 
 {% endmacro %}
@@ -231,9 +212,6 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
 {% macro load_comment_area(content) %}
     {% if content.comments_enabled %}
             <hr />
-            <p class="post-meta">
-                // Comment
-            </p>
         {% if Config.get('comments', 'system') == 'internal' %}
             <div id="comment-area" data-system="internal" data-path="{{url_for('wheel.modules.comments.comment', path=content.long_slug)}}"></div>
         {% elif Config.get('comments', 'system') == 'custom'%}
@@ -241,8 +219,6 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
         {% elif Config.get('comments', 'system') == 'disqus'%}
            {%if Config.get('comments', 'disqus_script') %}
                {{Config.get('comments', 'disqus_script', '')|safe()}}
-           {% else %}
-               {% include theme('disqus.html') %}
            {% endif %}
         {% endif %}
     {% endif %}
@@ -323,7 +299,7 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
                     </p>
                     {% endif %}
                     <p class="post-meta">
-                        // Tags {% for tag in content.tags %}
+                        标签 {% for tag in content.tags %}
                             <a class="post-category" href="{{url_for('wheel.core.tag', tag=tag)}}">{{ tag }}</a>
                         {% endfor %}
                     </p>

@@ -6,7 +6,7 @@ import logging
 from flask import request
 from flask import current_app
 from wheel.core.db import db
-import wheel.core.models as m
+from wheel.core import models as m
 from wheel.core.app import WheelApp
 
 

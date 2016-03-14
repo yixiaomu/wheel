@@ -26,4 +26,5 @@ class PostAdmin(BaseContentAdmin):
     }
 
 
-admin.register(Post, PostAdmin, category=_l("Content"), name=_l("Post"))
+#admin.register(Post, PostAdmin, category=_l("Content"), name=_l("Post"))
+admin.register(Post, PostAdmin, category=u"内容", name=u"帖子")
