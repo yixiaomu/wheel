@@ -53,7 +53,7 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
 
 
 {% macro render_author_avatar(author, size=70, css="post-avatar avatar") %}
-<a href="{{url_for('wheel.modules.authors.author', author_id=author.username)}}" title="See posts by {{ author.display_name }}">
+<a href="{{url_for('wheel.modules.authors.author', author_id=author.username)}}" title="查看{{ author.display_name }}的博客">
     <img class="{{css}}" alt="{{ author.display_name }}" height="{{size}}" width="{{size}}" src="{{ author.get_avatar_url(size=size) }}">
 </a>
 {% endmacro %}

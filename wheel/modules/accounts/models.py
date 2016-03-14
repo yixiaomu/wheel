@@ -55,6 +55,9 @@ class User(db.DynamicDocument, ThemeChanger, HasCustomValue, UserMixin):
         db.ReferenceField(Role, reverse_delete_rule=db.DENY), default=[]
     )
 
+    # default swatch
+    swatch = db.StringField(max_length=255, default='default')
+
     last_login_at = db.DateTimeField()
     current_login_at = db.DateTimeField()
     last_login_ip = db.StringField(max_length=255)
