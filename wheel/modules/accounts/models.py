@@ -93,18 +93,6 @@ class User(db.DynamicDocument, ThemeChanger, HasCustomValue, UserMixin):
             return url_for(
                 'wheel.core.media', filename=self.avatar_file_path
             )
-        elif self.use_avatar_from == 'facebook':
-            try:
-                return Connection.objects(
-                    provider_id='facebook',
-                    user_id=self.id,
-                ).first().image_url
-            except Exception as e:
-                logger.warning(
-                    '%s use_avatar_from is set to facebook but: Error: %s' % (
-                        self.display_name, str(e)
-                    )
-                )
         return Gravatar()(
             self.get_gravatar_email(), *args, **kwargs
         )
