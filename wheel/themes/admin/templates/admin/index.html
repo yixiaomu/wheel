@@ -16,10 +16,10 @@
                         <a class="btn btn-success btn-small" href="{{ url_for('post.edit_view', id=post.id)}}">
                         <i class="icon-edit"></i> {{_gettext('Edit')}}</a>
                           <a class="btn btn-primary btn-small" target="_blank" href="{{ post.get_absolute_url(endpoint='wheel.core.detail' if post.published else 'wheel.core.preview') }}">
-                          <i class="icon-globe"></i> {{_gettext('View') if post.published else _gettext('Preview')}}</a>
+                          <i class="icon-globe"></i> {{'预览' if post.published else '预览'}}</a>
                     </li>
                 {% else %}
-                    <li>{{ _gettext("There is no content yet!") }}<br><a class="btn btn-primary" href="{{ url_for('post.create_view') }}"><i class="icon-pencil"></i> {{_gettext('Create a new post')}}</a></li>
+                    <li>{{ _gettext("There is no content yet!") }}<br><a class="btn btn-primary" href="{{ url_for('post.create_view') }}"><i class="icon-pencil"></i> {{'添加一篇新的博客'}}</a></li>
                 {% endfor %}
             </ul>
         </div>

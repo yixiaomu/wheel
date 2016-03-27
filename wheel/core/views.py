@@ -70,8 +70,8 @@ class ContentList(MethodView):
         # !!! filter available_until
         now = datetime.now()
         path = long_slug.split('/')
-        mpath = ",".join(path)
-        mpath = ",{0},".format(mpath)
+        mpath = u",".join(path)
+        mpath = u",{0},".format(mpath)
 
         channel = Channel.objects.get_or_404(mpath=mpath, published=True)
 

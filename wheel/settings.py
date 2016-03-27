@@ -259,13 +259,13 @@ spruce superhero united
 ADMIN_SWATCH = 'default'
 
 ADMIN_ICONS = [
-    ('post.create_view', 'pencil', 'Write'),
-    ('post.index_view', 'th-list', 'Posts'),
-    ('config.index_view', 'cog', 'Config'),
-    ('user.index_view', 'user', 'Users'),
-    ('image.index_view', 'picture', 'Images'),
-    ('image.create_view', 'arrow-up', 'Upload'),
-    ('channel.index_view', 'th-list', 'Channels')
+    ('post.create_view', 'pencil', u'创建'),
+    ('post.index_view', 'th-list', u'博客'),
+    ('config.index_view', 'cog', u'配置'),
+    ('user.index_view', 'user', u'用户'),
+    ('image.index_view', 'picture', u'图片'),
+    ('image.create_view', 'arrow-up', u'上传'),
+    ('channel.index_view', 'th-list', u'频道')
 ]
 
 # front end theme
