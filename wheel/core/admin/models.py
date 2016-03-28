@@ -259,10 +259,6 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
     can_edit = True
     can_delete = True
 
-    # list_template = 'admin/model/list.html'
-    # edit_template = 'admin/custom/edit.html'
-    # create_template = 'admin/custom/create.html'
-
     column_list = (
         'title', 'slug', 'channel', 'published', 'created_at',
         'available_at', 'view_on_site'
@@ -272,16 +268,7 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
         'view_on_site': ModelAdmin.formatters.get('view_on_site'),
         'created_at': ModelAdmin.formatters.get('datetime'),
         'available_at': ModelAdmin.formatters.get('datetime'),
-        'short_url': ModelAdmin.formatters.get('link')
-    }
-
-    # column_type_formatters = {}
-    # column_labels = {}
-    # column_descriptions = {}
-    # column_sortable_list = [] / ('name', ('user', 'user.username'))
-    # column_default_sort = 'pk'
-    # column_choices = {'column': ('value', 'display')}
-    # column_display_pk = True
+        'short_url': ModelAdmin.formatters.get('link')}
 
     column_filters = ['published', 'title', 'summary',
                       'created_at', 'available_at']
@@ -291,9 +278,6 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
                     'published', 'add_image', 'contents',
                     'show_on_channel', 'available_at', 'available_until',
                     'tags', 'values', 'template_type', 'license', 'authors']
-    # form_excluded_columns = []
-    # form = None
-    # form_overrides = None
 
     form_widget_args = {
         'summary': {
@@ -304,7 +288,6 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
     }
 
     form_args = {
-        # 'body': {'widget': TextEditor()},
         'slug': {'widget': PrepopulatedText(master='title')}
     }
 
@@ -339,12 +322,6 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
             allowed_extensions="MEDIA_IMAGE_ALLOWED_EXTENSIONS",
         )
     }
-
-    # action_disallowed_list
-    # page_size = 20
-    # form_ajax_refs = {
-    #     'main_image': {"fields": ('title',)}
-    # }
 
     def get_list_columns(self):
         column_list = super(BaseContentAdmin, self).get_list_columns()
