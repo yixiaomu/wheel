@@ -82,7 +82,7 @@ Default configuration for FLask-Admin instance
 :name: - will be the page title
 :url: - is the ending point
 """
-ADMIN = {'name': 'wheel admin', 'url': '/admin'}
+ADMIN = {'name': 'wheel admin', 'url': '/admin', 'role': u'管理员'}
 
 """
 File admin can expose folders, you just need to have them

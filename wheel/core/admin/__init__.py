@@ -68,7 +68,8 @@ def configure_admin(app, admin):  # noqa
         admin._views.insert(0, admin.index_view)
 
     admin_config = app.config.get('ADMIN',
-                                  {'name': 'Wheel Admin',
+                                  {'name': u'轮子CMS',
+                                   'role': u'管理员',
                                    'url': '/admin'})
 
     for k, v in list(admin_config.items()):
