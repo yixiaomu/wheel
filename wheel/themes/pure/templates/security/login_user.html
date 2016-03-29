@@ -1,27 +1,40 @@
 {% from theme("security/_macros.html") import render_field_with_errors, render_field, render_button %}
-{% extends theme("base.html") %}
-{% block content %}
-<div class="pure-g-r" id="layout">
-    {% include theme('sidebar.html') %}
-    <div class="pure-u-1">
-        <div class="content">
-            <!-- A wrapper for all the blog posts -->
-            <div class="posts">
-              <h1>Login</h1>
-              {% include theme("security/_messages.html") %}
-              <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form" class="pure-form pure-form-aligned" role="form">
-                <fieldset>
-                {{ login_user_form.hidden_tag() }}
-                {{ render_field_with_errors(login_user_form.email, class="form-control", placeholder="you@domain.com") }}
-                {{ render_field_with_errors(login_user_form.password, class="form-control") }}
-                {{ render_field_with_errors(login_user_form.remember, class='form-control', css_class="pure-checkbox", style="height:14px;") }}
-                {{ render_field(login_user_form.next) }}
-                {{ render_button(login_user_form.submit, class="pure-button pure-button-primary") }}
-                </fieldset>
-              </form>
-              {% include theme("security/_menu.html") %}
-            </div>
-        </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员登陆</title>
+    <link rel="stylesheet" href="{{theme_static('assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{theme_static('assets/font-awesome/css/font-awesome.css')}}">
+    <link rel="stylesheet" href="{{theme_static('assets/css/animate.css')}}">
+    <link rel="stylesheet" href="{{theme_static('assets/css/style.css')}}">
+</head>
+<body class="gray-bg">
+  <div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="content">
+      <!-- A wrapper for all the blog posts -->
+      <div class="posts">
+        <p>登录 <b>{{Config.get('site', 'site_name', '一个简单的CMS系统')}}</b> 后台管理页面</p>
+        {% include theme("security/_messages.html") %}
+        <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form" class="m-t" role="form">
+          <fieldset>
+          {{ login_user_form.hidden_tag() }}
+          <div class="form-group">
+              <input id="email" name="email" type="email" class="form-control" placeholder="管理员邮箱地址" required="">
+          </div>
+          <div class="form-group">
+              <input id="password" name="password" type="password" class="form-control" placeholder="管理员密码" required="">
+          </div>
+          <div class="form-group">
+              下次自动登录： <input id="remember" name="remember" type="checkbox">
+          </div>
+          <button type="submit" class="btn btn-primary block full-width m-b">登录</button>
+          </fieldset>
+        </form>
+        {% include theme("security/_menu.html") %}
+      </div>
     </div>
-</div>
-{% endblock %}
+  </div>
+</body>
+</html>

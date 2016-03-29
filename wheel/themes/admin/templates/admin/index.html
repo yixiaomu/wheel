@@ -1,89 +1,88 @@
 {% extends theme('admin/master.html') %}
 
 {% block body %}
-    <div class="row">
 
-
-        <div class="well span11">
-            {%if config.get('ADMIN_HEADER') %}{{config.get('ADMIN_HEADER')|safe}}{% endif %}
-            <h1>{{ admin_view.admin.name }}</h1>
-            <h3>{{_gettext('Latest Posts')}}:</h3>
-            <ul>
-                {% for post in get_contents(model='posts.post', limit=5) %}
-                    <li style="margin-bottom: 5px">
-                        {{ post.channel.title }} | {{ post.title }}
-                        | <i class={% if post.published %} "icon-ok-circle" {% else %} "icon-ban-circle" {% endif %}></i>
-                        <a class="btn btn-success btn-small" href="{{ url_for('post.edit_view', id=post.id)}}">
-                        <i class="icon-edit"></i> {{_gettext('Edit')}}</a>
-                          <a class="btn btn-primary btn-small" target="_blank" href="{{ post.get_absolute_url(endpoint='wheel.core.detail' if post.published else 'wheel.core.preview') }}">
-                          <i class="icon-globe"></i> {{'预览' if post.published else '预览'}}</a>
-                    </li>
-                {% else %}
-                    <li>{{ _gettext("There is no content yet!") }}<br><a class="btn btn-primary" href="{{ url_for('post.create_view') }}"><i class="icon-pencil"></i> {{'添加一篇新的博客'}}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-
-{#        <div class="well span3">#}
-{#            <h3>{{_gettext('Latest Comments')}}:</h3>#}
-{#            <ul>#}
-{#                {% for comment in get_comments(limit=3)  %}#}
-{#                    <li>#}
-{#                        {{ comment.author_name }} {{ _gettext('says') }}:#}
-{#                        <br><small>{{ comment.body[:140] }}</small>#}
-{#                        <br> <i class={% if comment.published %} "icon-ok-circle" {% else %} "icon-ban-circle" {% endif %}></i>#}
-{#                        <a  href="{{ url_for('comment.edit_view', id=comment.id)}}">#}
-{#                        <i class="icon-edit"></i> </a>#}
-{#                        <a target="_blank" href="{{ comment.get_canonical_url() }}">#}
-{#                        <i class="icon-globe"></i></a>#}
-{#                    </li>#}
-{#                {% else %}#}
-{#                    {{ _gettext("No comments yet!") }}#}
-{#                    <small>{{ _gettext("Internal comment system is enabled, if you want to change it click in config button and change from 'internal' to 'disqus' in comments configuration and set your disqus_script.") }}</small>#}
-{#                {% endfor %}#}
-{#            </ul>#}
-{#        </div>#}
-
-    </div>
-
-    <div class="row">
-    {% for endpoint, icon, text in config.get('ADMIN_ICONS', [])%}
-        <div class="span1">
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>快捷操作 </h5>
+      </div>
+      <div class="ibox-content">
+        <div class="table-responsive">
+          <div class="span1">
+          {% for endpoint, icon, text in config.get('ADMIN_ICONS', [])%}
             <a href="{{ url_for(endpoint) }}" class="btn btn-primary">
-                <i class="icon-{{icon}} icon-white"></i>
-                <span><strong>{{_gettext(text)}}</strong></span>
+              <i class="icon-{{icon}} icon-white"></i>
+              <span><strong>{{_gettext(text)}}</strong></span>
             </a>
+          {% endfor %}
+          </div>
         </div>
-    {% endfor %}
-
+      </div>
     </div>
+  </div>
+</div>
 
-    <div class="row">
-    <div class="span1" style="margin-top: 30px;">
-    <form id="swatcher_form" action="{{url_for('wheel.modules.accounts.set_swatch')}}" method="POST">
-        <input type="hidden" value="{{csrf_token()}}" name="csrf_token" id="csrf_token" />
-        <label>{{_gettext('Theme')}}</label>
-        <select id="swatch" name="swatch" onchange="$('#swatcher_form').submit();">
-            {% for swatch in (
-               'amelia',
-               'cerulean',
-               'cosmo',
-               'cyborg',
-               'default',
-               'flatly',
-               'journal',
-               'readable',
-               'simplex',
-               'slate',
-               'spacelab',
-               'spruce',
-               'superhero',
-               'united'
-            ) %}
-            <option id="{{swatch}}" value="{{swatch}}" {%if swatch == current_user.swatch %}selected{%endif%}>{{swatch}}</option>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>最近添加的文章列表 </h5>
+      </div>
+
+      <div class="ibox-content">
+        <div class="table-responsive">
+          {% with posts = get_contents(model="posts.post", limit=5) %}
+          {% if posts %}
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID </th>
+                <th>分类 </th>
+                <th>标题 </th>
+                <th>来源 </th>
+                <th>添加时间 </th>
+                <th>修改时间 </th>
+                <th>是否上线 </th>
+                <th>操作 </th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for post in posts %}
+            <tr>
+              <td>{{ post.id }}</td>
+              <td>{{ post.channel }}</td>
+              <td>{{ post.title }}</td>
+              {% if post.source %}
+              <td>{{ post.source }}</td>
+              {% else %}
+              <td>{{ "原创" }}</td>
+              {% endif %}
+              <td>{{ post.created_at }}</td>
+              <td>{{ post.updated_at }}</td>
+              {% if post.published %}
+              <td><i class="fa fa-check text-navy"></i></td>
+              {% else %}
+              <td><i class="fa fa-times"></i></td>
+              {% endif %}
+              <td>
+                <a class="btn btn-success btn-small" href="{{ url_for('post.edit_view', id=post.id)}}">
+                  <i class="icon-edit"></i> {{_gettext('Edit')}}</a>
+                <a class="btn btn-primary btn-small" target="_blank" href="{{ post.get_absolute_url(endpoint='wheel.core.detail' if post.published else 'wheel.core.preview') }}">
+                  <i class="icon-globe"></i> {{'预览' if post.published else '预览'}}</a></td>
+            </tr>
             {% endfor %}
-        </select>
-    </form>
-    </div>
-    </div>
+            </tbody>
+          </table>
+          {% else %}
+          <li>{{ "一篇文章都还没有呢。。。" }}<br><a class="btn btn-primary" href="{{ url_for('post.create_view') }}"><i class="icon-pencil"></i> {{"添加一篇新的文章"}}</a></li>
+          {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+  </div>
+</div>
+
 {% endblock %}

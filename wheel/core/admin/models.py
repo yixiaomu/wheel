@@ -261,8 +261,7 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
         'view_on_site': ModelAdmin.formatters.get('view_on_site'),
         'created_at': ModelAdmin.formatters.get('datetime'),
         'available_at': ModelAdmin.formatters.get('datetime'),
-        'short_url': ModelAdmin.formatters.get('link')
-    }
+        'short_url': ModelAdmin.formatters.get('link')}
 
     column_filters = ['published', 'title', 'summary',
                       'created_at', 'available_at']
@@ -272,9 +271,6 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
                     'published', 'add_image', 'contents',
                     'show_on_channel', 'available_at', 'available_until',
                     'tags', 'values', 'template_type', 'license', 'authors']
-    # form_excluded_columns = []
-    # form = None
-    # form_overrides = None
 
     form_widget_args = {
         'summary': {
@@ -285,7 +281,6 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
     }
 
     form_args = {
-        # 'body': {'widget': TextEditor()},
         'slug': {'widget': PrepopulatedText(master='title')}
     }
 

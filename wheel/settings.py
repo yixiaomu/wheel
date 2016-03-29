@@ -82,7 +82,7 @@ Default configuration for FLask-Admin instance
 :name: - will be the page title
 :url: - is the ending point
 """
-ADMIN = {'name': 'wheel admin', 'url': '/admin'}
+ADMIN = {'name': u'测试管理员', 'url': '/admin', 'role': u'管理员'}
 
 """
 File admin can expose folders, you just need to have them
@@ -259,13 +259,13 @@ spruce superhero united
 ADMIN_SWATCH = 'default'
 
 ADMIN_ICONS = [
-    ('post.create_view', 'pencil', u'创建'),
-    ('post.index_view', 'th-list', u'博客'),
-    ('config.index_view', 'cog', u'配置'),
-    ('user.index_view', 'user', u'用户'),
-    ('image.index_view', 'picture', u'图片'),
-    ('image.create_view', 'arrow-up', u'上传'),
-    ('channel.index_view', 'th-list', u'频道')
+    ('post.create_view', 'pencil', u'撰写文章'),
+    ('post.index_view', 'th-list', u'文章列表'),
+    ('config.index_view', 'cog', u'系统配置'),
+    ('user.index_view', 'user', u'用户管理'),
+    ('image.index_view', 'picture', u'图片管理'),
+    ('image.create_view', 'arrow-up', u'上传管理'),
+    ('channel.index_view', 'th-list', u'频道管理')
 ]
 
 # front end theme

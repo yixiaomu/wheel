@@ -43,9 +43,6 @@ class ConnectionAdmin(ModelAdmin):
     roles_accepted = ('admin',)
 
 
-#admin.register(User, UserAdmin, category=_l("Accounts"), name=_l("User"))
-admin.register(User, UserAdmin, category=u"帐号", name=u"用户")
-#admin.register(Role, RoleAdmin, category=_l("Accounts"), name=_l("Roles"))
-admin.register(Role, RoleAdmin, category=u"帐号", name=u"角色")
-#admin.register(Connection, ConnectionAdmin, category=_l("Accounts"), name=_l("Connection"))
-admin.register(Connection, ConnectionAdmin, category=u"帐号", name=u"关联")
+admin.register(User, UserAdmin, category=u"帐号管理", name=u"用户管理")
+admin.register(Role, RoleAdmin, category=u"帐号管理", name=u"权限管理")
+admin.register(Connection, ConnectionAdmin, category=u"帐号管理", name=u"用户权限关系管理")

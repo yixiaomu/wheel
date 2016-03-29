@@ -53,6 +53,7 @@ class Content(HasCustomValue, Publishable, LongSlugged,
     template_type = db.ReferenceField(ContentTemplateType,
                                       required=False,
                                       reverse_delete_rule=db.NULLIFY)
+    source = db.StringField(default=u"原创")
     contents = db.ListField(db.EmbeddedDocumentField(SubContent))
     model = db.StringField()
     comments_enabled = db.BooleanField(default=True)

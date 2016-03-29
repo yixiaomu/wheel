@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>{% block title %}{% if admin_view.category %}{{ admin_view.category }} - {% endif %}{{ admin_view.name }} - {{ admin_view.admin.name }}{% endblock %}</title>
     {% block head_meta %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,79 +10,126 @@
         <meta name="author" content="">
     {% endblock %}
     {% block head_css %}
-        <link href="{{ theme_static('bootstrap/bootstrap2/swatch/{}/bootstrap.min.css'.format(current_user.swatch), v='2.3.2') }}" rel="stylesheet">
-        <link href="{{ theme_static('bootstrap/bootstrap2/css/bootstrap-responsive.min.css', v='2.3.2') }}" rel="stylesheet">
-        <link href="{{ theme_static('admin/css/bootstrap2/admin.css', v='1.1.1') }}" rel="stylesheet">
-        <link href="{{ theme_static('admin/css/bootstrap2/wheel_admin.css', v='1.1.1') }}" rel="stylesheet">
-        <style>
-        body {
-            padding-top: 4px;
-        }
-        </style>
+        <link href="{{ theme_static('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ theme_static('assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+
+        <!-- Toastr style -->
+        <link href="{{ theme_static('assets/css/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
+
+        <!-- Gritter -->
+        <link href="{{ theme_static('assets/js/plugins/gritter/jquery.gritter.css') }}" rel="stylesheet">
+
+        <!-- animate & style -->
+        <link href="{{ theme_static('assets/css/animate.css') }}" rel="stylesheet">
+        <link href="{{ theme_static('assets/css/style.css') }}" rel="stylesheet">
+
     {% endblock %}
     {% block head %}
     {% endblock %}
     {% block head_tail %}
     {% endblock %}
   </head>
-  <body>
+  <body class="pace-done">
     {% block page_body %}
-    <div class="container">
-      <div class="navbar nav">
-        <div class="navbar-inner">
-          <div class="container">
-              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </a>
-              {% block brand %}
-              <span class="brand"><img src="{{Config.get('site', 'admin_logo', theme_static('img/logo.png'))}}" alt="{{ admin_view.admin.name }}" height="20" style="height: 20px;"/></span>
-              {% endblock %}
-              <div class="nav-collapse collapse">
-                  {% block main_menu %}
-                  <ul class="nav">
-                    <!-- <li class="divider-vertical"></li> -->
-                    {{ layout.menu() }}
-                  </ul>
-                  {% endblock %}
-                  {% block menu_links %}
-                  <ul class="nav pull-right">
-                    {{ layout.menu_links() }}
-                  </ul>
-                  {% endblock %}
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="{{Config.get('site', 'admin_logo', theme_static('img/logo.png')) }}" alt="{{ admin_view.admin.name }}" height="20" style="height: 20px;" />
+                             </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                              <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">欢迎 {{ admin_view.admin.name }} 回来！</strong>
+                            </span> <span class="text-muted text-xs block"> <strong class="font-bold" > 当前身份： {{ admin_view.admin.role }}</strong><b class="caret"></b></span> </span> </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="{{url_for('wheel.modules.accounts.profile_edit', next=url_for('admin.index'))}}"><i class="icon-user"></i>更改个人信息</a></li>
+                                <li><a href="{{url_for('wheel.modules.notify.notify_list')}}"><i class="icon-user"></i>消息提醒</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{url_for_security('logout')}}"><i class="icon-off"></i>退出登录</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                          WheelCMS
+                        </div>
+                    </li>
+                    {{ layout.menu_ins() }}
+                </ul>
 
-                   {% block access_control %}
-                   <ul class="nav pull-right">
-                  		<!-- <li class="divider-vertical"></li> -->
-                  		<li class="dropdown">
-                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  		<img src="{{current_user.get_avatar_url(size=20) }}" width="20"/> {{current_user.display_name}}
-                  		<b class="caret"></b>
-                  		</a>
-                  		<ul class="dropdown-menu">
-                  		    <li><a href="/"><i class="icon-globe"></i> Return to site</a></li>
-                          {% if security.changeable %}
-                  		    <li><a href="{{url_for_security('change_password')}}"><i class="icon-user"></i> Change password</a></li>
-                          {% endif %}
-                            <li><a href="{{url_for('wheel.modules.accounts.profile_edit', next=url_for('admin.index'))}}"><i class="icon-user"></i> Edit Profile</a></li>
-                  		    <li><a href="{{url_for_security('logout')}}"><i class="icon-off"></i> Logout</a></li>
-                  		</ul>
-                  		</li>
-                   </ul>
-            	    {% endblock %}
-              </div>
-          </div>
+            </div>
+        </nav>
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" action="search_results.html">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                </div>
+            </form>
         </div>
-      </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">欢迎使用轮子CMS后台管理系统。</span>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a href="profile.html" class="pull-left">
+                                    <img alt="image" class="img-circle" src="img/a7.jpg">
+                                </a>
+                                <div class="media-body">
+                                    <small class="pull-right">46h ago</small>
+                                    <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                    <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="mailbox.html">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
 
-      {% block messages %}
-      {{ layout.messages() }}
-      {% endblock %}
 
-      {% set render_ctx = h.resolve_ctx() %}
+                <li>
+                  <a href="{{ url_for_security('logout') }}"><i class="fa fa-sign-out"></i>退出登录</a>
+                </li>
+                <li>
+                    <a class="right-sidebar-toggle">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </li>
+            </ul>
 
-      {% block body %}{% endblock %}
+        </nav>
+        {% block messages %}
+        {{ layout.messages() }}
+        {% endblock %}
+
+        {% set render_ctx = h.resolve_ctx() %}
+
+        {% block body %}{% endblock %}
     </div>
     {% endblock %}
 
@@ -89,9 +137,7 @@
 
     <script src="{{ theme_static('vendor/jquery.min.js', v='2.1.4') }}" type="text/javascript"></script>
     <script src="{{ theme_static('bootstrap/bootstrap2/js/bootstrap.min.js', v='2.3.2') }}" type="text/javascript"></script>
-    <script src="{{ theme_static('vendor/moment.min.js', v='2.9.0') }}" type="text/javascript"></script>
     <script src="{{ theme_static('vendor/select2/select2.min.js', v='3.5.2') }}" type="text/javascript"></script>
-    <script src="{{ theme_static('admin/custom.js') }}"></script>
 
     {% endblock %}
 
@@ -99,9 +145,6 @@
     {% endblock %}
 
     {% if request.endpoint.endswith(('edit_view', 'create_view')) %}
-    <link rel="stylesheet" href="{{theme_static('summernote/summernote.css')}}">
-    <link href="{{theme_static('fontawesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <script src="{{ theme_static('summernote/summernote.min.js') }}"></script>
 
     <link rel="stylesheet" href="{{theme_static('markdown/css/bootstrap-markdown.min.css')}}">
 
