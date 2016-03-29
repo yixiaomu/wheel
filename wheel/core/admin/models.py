@@ -65,8 +65,7 @@ class Roled(object):
 
 def format_datetime(self, request, obj, fieldname, *args, **kwargs):
     return html.div(style='min-width:130px;')(
-        getattr(obj, fieldname).strftime(self.get_datetime_format())
-    )
+        getattr(obj, fieldname).strftime(self.get_datetime_format()))
 
 
 def view_on_site(self, request, obj, fieldname, *args, **kwargs):
@@ -75,16 +74,10 @@ def view_on_site(self, request, obj, fieldname, *args, **kwargs):
         'endpoint',
         'wheel.core.detail' if available else 'wheel.core.preview'
     )
-    #return html.a(
-    #    href=obj.get_absolute_url(endpoint),
-    #    target='_blank',
-    #)(html.i(class_="icon icon-eye-open", style="margin-right: 5px;")(),
-    #  _l('View on site') if available else _l('Preview on site'))
-    return html.a(
-        href=obj.get_absolute_url(endpoint),
-        target='_blank',
-    )(html.i(class_="icon icon-eye-open", style="margin-right: 5px;")(),
-      u'去网站查看效果' if available else u'预览')
+    return html.a(href=obj.get_absolute_url(endpoint),
+                  target='_blank')(html.i(class_="icon icon-eye-open",
+                                          style="margin-right: 5px;")(),
+                                   u'去网站查看效果' if available else u'预览')
 
 
 def format_ul(self, request, obj, fieldname, *args, **kwars):
@@ -259,10 +252,6 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
     can_edit = True
     can_delete = True
 
-    # list_template = 'admin/model/list.html'
-    # edit_template = 'admin/custom/edit.html'
-    # create_template = 'admin/custom/create.html'
-
     column_list = (
         'title', 'slug', 'channel', 'published', 'created_at',
         'available_at', 'view_on_site'
@@ -274,14 +263,6 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
         'available_at': ModelAdmin.formatters.get('datetime'),
         'short_url': ModelAdmin.formatters.get('link')
     }
-
-    # column_type_formatters = {}
-    # column_labels = {}
-    # column_descriptions = {}
-    # column_sortable_list = [] / ('name', ('user', 'user.username'))
-    # column_default_sort = 'pk'
-    # column_choices = {'column': ('value', 'display')}
-    # column_display_pk = True
 
     column_filters = ['published', 'title', 'summary',
                       'created_at', 'available_at']
@@ -339,12 +320,6 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
             allowed_extensions="MEDIA_IMAGE_ALLOWED_EXTENSIONS",
         )
     }
-
-    # action_disallowed_list
-    # page_size = 20
-    # form_ajax_refs = {
-    #     'main_image': {"fields": ('title',)}
-    # }
 
     def get_list_columns(self):
         column_list = super(BaseContentAdmin, self).get_list_columns()
