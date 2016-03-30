@@ -19,8 +19,8 @@ from flask import current_app
 from flask.views import MethodView
 
 from wheel.utils.atom import AtomFeed
-from wheel.core.models.channel import Channel
 from wheel.core.models.config import Config
+from wheel.core.models.channel import Channel
 from wheel.core.models.content import Content
 from wheel.core.templates import render_template
 from wheel.utils import is_accessible, get_current_user
@@ -49,19 +49,14 @@ class ContentList(MethodView):
         self.template_suffix = "{0}_{1}".format(type_suffix,
                                                 self.template_suffix)
 
-        common_data = dict(
-            object_name=self.object_name,
-            suffix=self.template_suffix,
-            ext=self.template_ext
-        )
+        common_data = dict(object_name=self.object_name,
+                           suffix=self.template_suffix,
+                           ext=self.template_ext)
 
         channel_list = self.channel.get_ancestors_slugs()
-        names = [
-            u"{object_name}/{channel}/{suffix}.{ext}".format(
-                channel=channel, **common_data
-            )
-            for channel in channel_list
-        ]
+        names = [u"{object_name}/{channel}/{suffix}.{ext}".format(
+                    channel=channel, **common_data)
+                 for channel in channel_list]
 
         names.append(u"{object_name}/{suffix}.{ext}".format(**common_data))
         return names
@@ -70,8 +65,7 @@ class ContentList(MethodView):
         # !!! filter available_until
         now = datetime.now()
         path = long_slug.split('/')
-        mpath = u",".join(path)
-        mpath = u",{0},".format(mpath)
+        mpath = u",{0},".format(u",".join(path))
 
         channel = Channel.objects.get_or_404(mpath=mpath, published=True)
 
@@ -169,30 +163,25 @@ class ContentDetail(MethodView):
         else:
             type_suffix = 'default'
 
-        self.template_suffix = "{0}_{1}".format(type_suffix,
-                                                self.template_suffix)
+        self.template_suffix = "%s_%s" % (type_suffix, self.template_suffix)
 
         module_name = self.content.module_name
         model_name = self.content.model_name
 
-        common_data = dict(
-            object_name=self.object_name,
-            module_name=module_name,
-            model_name=model_name,
-            suffix=self.template_suffix,
-            ext=self.template_ext
-        )
+        common_data = dict(object_name=self.object_name,
+                           module_name=module_name,
+                           model_name=model_name,
+                           suffix=self.template_suffix,
+                           ext=self.template_ext)
 
-        names = [
-            u"{object_name}/{content_slug}.{ext}".format(
-                content_slug=self.content.long_slug, **common_data),
-            u"{object_name}/{content_slug}_{suffix}.{ext}".format(
-                content_slug=self.content.long_slug, **common_data),
-            u"{object_name}/{content_slug}.{ext}".format(
-                content_slug=self.content.slug, **common_data),
-            u"{object_name}/{content_slug}_{suffix}.{ext}".format(
-                content_slug=self.content.slug, **common_data)
-        ]
+        names = [u"{object_name}/{content_slug}.{ext}".format(
+                    content_slug=self.content.long_slug, **common_data),
+                 u"{object_name}/{content_slug}_{suffix}.{ext}".format(
+                    content_slug=self.content.long_slug, **common_data),
+                 u"{object_name}/{content_slug}.{ext}".format(
+                    content_slug=self.content.slug, **common_data),
+                 u"{object_name}/{content_slug}_{suffix}.{ext}".format(
+                    content_slug=self.content.slug, **common_data)]
 
         channel_list = self.content.channel.get_ancestors_slugs()
         for channel in channel_list:

@@ -1,5 +1,5 @@
-#!/usr/bin/env python
 # coding=utf8
+#
 
 
 import datetime
@@ -14,16 +14,11 @@ from wheel.utils.settings import get_setting_value
 from wheel.core.admin.utils import _l
 from wheel.core.models.custom_values import HasCustomValue
 
-###############################################################
-# Commom extendable base classes
-###############################################################
-
 
 class ContentFormat(object):
     content_format = db.StringField(
         choices=TEXT_FORMATS,
-        default=get_setting_value('DEFAULT_TEXT_FORMAT', 'html')
-    )
+        default=get_setting_value('DEFAULT_TEXT_FORMAT', 'html'))
 
 
 class Dated(object):

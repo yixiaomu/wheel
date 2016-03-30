@@ -1,4 +1,7 @@
-# -*- coding: utf-8 -*-
+# coding=utf8
+#
+
+
 """
 Wheel-Themes
 =============
@@ -15,31 +18,28 @@ It takes care of:
 from __future__ import with_statement
 
 
-# Yarg, here be pirates!
-from operator import attrgetter
 import itertools
 import os
 import os.path
 import re
 import sys
+from operator import attrgetter
 
 import logging
 
-from flask import (
-    # Module,
-    send_from_directory,
-    render_template,
-    json,
-    abort,
-    url_for,
-    Blueprint
-)
+from flask import json
+from flask import abort
+from flask import url_for
+from flask import Blueprint
+from flask import render_template
+from flask import send_from_directory
 
 # Support >= Flask 0.9
 try:
     from flask import _app_ctx_stack as stack
 except ImportError:
     from flask import _request_ctx_stack as stack
+
 
 from jinja2 import contextfunction
 from jinja2.loaders import FileSystemLoader, BaseLoader, TemplateNotFound
@@ -52,6 +52,8 @@ DOCTYPES = 'html4 html5 xhtml'.split()
 IDENTIFIER = re.compile(r'^[a-zA-Z_][a-zA-Z0-9_]*$')
 
 containable = lambda i: i if hasattr(i, '__contains__') else tuple(i)
+
+# set the basestring func
 if sys.version_info.major == 3:
     basestring = str
 

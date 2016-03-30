@@ -1,5 +1,9 @@
-#!/usr/bin/env python
 # coding=utf8
+#
+
+"""
+channel model
+"""
 
 import logging
 from flask.ext.mistune import markdown
@@ -36,12 +40,14 @@ class ContentProxy(db.DynamicDocument):
 
 class Channel(Tagged, HasCustomValue, Publishable, LongSlugged,
               ChannelConfigs, ContentFormat, db.DynamicDocument):
+
+    meta = {'ordering': ['order', 'title']}
+
     title = db.StringField(max_length=255, required=True)
     description = db.StringField()
     show_in_menu = db.BooleanField(default=False)
     is_homepage = db.BooleanField(default=False)
-    roles = db.ListField(
-        db.ReferenceField('Role', reverse_delete_rule=db.PULL))
+    roles = db.ListField(db.ReferenceField('Role', reverse_delete_rule=db.PULL))
     include_in_rss = db.BooleanField(default=True)
     indexable = db.BooleanField(default=True)
     canonical_url = db.StringField()
@@ -60,10 +66,6 @@ class Channel(Tagged, HasCustomValue, Publishable, LongSlugged,
                                        required=False,
                                        reverse_delete_rule=db.NULLIFY)
     sort_by = db.ListField(db.StringField(), default=[])
-
-    meta = {
-        'ordering': ['order', 'title'],
-    }
 
     def get_text(self):
         if self.content_format == "markdown":

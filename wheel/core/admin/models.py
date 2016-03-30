@@ -65,8 +65,7 @@ class Roled(object):
 
 def format_datetime(self, request, obj, fieldname, *args, **kwargs):
     return html.div(style='min-width:130px;')(
-        getattr(obj, fieldname).strftime(self.get_datetime_format())
-    )
+        getattr(obj, fieldname).strftime(self.get_datetime_format()))
 
 
 def view_on_site(self, request, obj, fieldname, *args, **kwargs):
@@ -75,16 +74,10 @@ def view_on_site(self, request, obj, fieldname, *args, **kwargs):
         'endpoint',
         'wheel.core.detail' if available else 'wheel.core.preview'
     )
-    #return html.a(
-    #    href=obj.get_absolute_url(endpoint),
-    #    target='_blank',
-    #)(html.i(class_="icon icon-eye-open", style="margin-right: 5px;")(),
-    #  _l('View on site') if available else _l('Preview on site'))
-    return html.a(
-        href=obj.get_absolute_url(endpoint),
-        target='_blank',
-    )(html.i(class_="icon icon-eye-open", style="margin-right: 5px;")(),
-      u'去网站查看效果' if available else u'预览')
+    return html.a(href=obj.get_absolute_url(endpoint),
+                  target='_blank')(html.i(class_="icon icon-eye-open",
+                                          style="margin-right: 5px;")(),
+                                   u'去网站查看效果' if available else u'预览')
 
 
 def format_ul(self, request, obj, fieldname, *args, **kwars):
