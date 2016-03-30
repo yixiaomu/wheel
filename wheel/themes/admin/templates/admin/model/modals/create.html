@@ -5,6 +5,7 @@
   {{ lib.render_form(form, return_url, extra=None, form_opts=form_opts,
                      action=url_for('.create_view', url=return_url),
                      is_modal=True) }}
+  </div>
 {% endblock %}
 
 {% block tail %}
@@ -21,4 +22,5 @@
     window.faForm.applyGlobalStyles(document);
   });
   </script>
+
 {% endblock %}

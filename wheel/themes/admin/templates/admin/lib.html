@@ -77,8 +77,8 @@
 {# ---------------------- Forms -------------------------- #}
 {% macro render_field(form, field, kwargs={}, caller=None) %}
   {% set direct_error = h.is_field_error(field.errors) %}
-  <div class="control-group{{ ' error' if direct_error else '' }}">
-    <div class="control-label">
+  <div class="form-group{{ ' error' if direct_error else '' }}">
+    <div class="col-sm-2 control-label">
       <label for="{{ field.id }}">{{ field.label.text }}
           {% if h.is_required_form_field(field) %}
             <strong style="color: red">&#42;</strong>
@@ -87,26 +87,32 @@
           {%- endif %}
       </label>
     </div>
-    <div class="controls">
-    <div>
-      {{ field(**kwargs)|safe }}
-    </div>
-    {% if field.description %}
-    <p class="help-block">{{ field.description|safe }}</p>
+    {%- if field.label.text == "Body" %}
+      <div class="summernote" id="body" name="body">
+      </div>
+    {% else %}
+      <div class="col-sm-10">
+        <div>
+          {{ field(**kwargs)|safe }}
+        </div>
+        {% if field.description %}
+        <p class="help-block">{{ field.description|safe }}</p>
+        {% endif %}
+        {% if direct_error %}
+          <ul class="input-errors">
+          {% for e in field.errors if e is string %}
+            <li>{{ e }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
     {% endif %}
-    {% if direct_error %}
-      <ul class="input-errors">
-      {% for e in field.errors if e is string %}
-        <li>{{ e }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-    </div>
     {% if caller %}
       {{ caller(form, field, direct_error, kwargs) }}
     {% endif %}
   </div>
 {% endmacro %}
+
 
 {% macro render_header(form, text) %}
     <h3>{{ text }}</h3>

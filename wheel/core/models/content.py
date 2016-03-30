@@ -57,7 +57,8 @@ class Content(HasCustomValue, Publishable, LongSlugged,
     contents = db.ListField(db.EmbeddedDocumentField(SubContent))
     model = db.StringField()
     comments_enabled = db.BooleanField(default=True)
-    license = db.EmbeddedDocumentField(License)
+    #license = db.EmbeddedDocumentField(License)
+    license = db.StringField()
     shortened_url = db.EmbeddedDocumentField(ShortenedURL)
 
     meta = {
