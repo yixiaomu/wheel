@@ -30,18 +30,4 @@
   {{ super() }}
   {{ lib.form_js() }}
 
-  <!-- SUMMERNOTE -->
-  <link href="{{ theme_static('assets/css/plugins/summernote/summernote.css') }}" rel="stylesheet">
-  <link href="{{ theme_static('assets/css/plugins/summernote/summernote-bs3.css') }}" rel="stylesheet">
-  <script src="{{ theme_static('assets/js/plugins/summernote/summernote.min.js')}}"></script>
-  <script>
-      $('.summernote').summernote();
-      var edit = function() {
-          $('.click2edit').summernote({focus: true});
-      };
-      var save = function() {
-          var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-          $('.click2edit').destroy();
-      };
-  </script>
 {% endblock %}

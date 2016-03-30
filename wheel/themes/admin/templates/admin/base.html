@@ -22,6 +22,7 @@
         <!-- animate & style -->
         <link href="{{ theme_static('assets/css/animate.css') }}" rel="stylesheet">
         <link href="{{ theme_static('assets/css/style.css') }}" rel="stylesheet">
+        <link href="{{ theme_static('summernote/summernote.css') }}" rel="stylesheet">
 
     {% endblock %}
     {% block head %}
@@ -138,6 +139,10 @@
     <script src="{{ theme_static('vendor/jquery.min.js', v='2.1.4') }}" type="text/javascript"></script>
     <script src="{{ theme_static('bootstrap/bootstrap2/js/bootstrap.min.js', v='2.3.2') }}" type="text/javascript"></script>
     <script src="{{ theme_static('vendor/select2/select2.min.js', v='3.5.2') }}" type="text/javascript"></script>
+    <script src="{{ theme_static('vendor/moment.min.js', v='2.9.0') }}" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="{{theme_static('markdown/css/bootstrap-markdown.min.css')}}">
+    <script src="{{ theme_static('assets/js/plugins/summernote/summernote.min.js')}}"></script>
 
     {% endblock %}
 
@@ -145,8 +150,6 @@
     {% endblock %}
 
     {% if request.endpoint.endswith(('edit_view', 'create_view')) %}
-
-    <link rel="stylesheet" href="{{theme_static('markdown/css/bootstrap-markdown.min.css')}}">
 
     {% for filename in ['bootstrap-markdown', 'hotkeys', 'marked.min', 'to-markdown']%}
         <script src="{{ theme_static('markdown/js/%s.js' % filename) }}"></script>

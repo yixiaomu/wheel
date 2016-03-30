@@ -87,32 +87,27 @@
           {%- endif %}
       </label>
     </div>
-    {%- if field.label.text == "Body" %}
-      <div class="summernote" id="body" name="body">
+    <!-- <div class="col-sm-10"> -->
+    <div class="controls">
+      <div>
+        {{ field(**kwargs)|safe }}
       </div>
-    {% else %}
-      <div class="col-sm-10">
-        <div>
-          {{ field(**kwargs)|safe }}
-        </div>
-        {% if field.description %}
-        <p class="help-block">{{ field.description|safe }}</p>
-        {% endif %}
-        {% if direct_error %}
-          <ul class="input-errors">
-          {% for e in field.errors if e is string %}
-            <li>{{ e }}</li>
-          {% endfor %}
-          </ul>
-        {% endif %}
-      </div>
-    {% endif %}
+      {% if field.description %}
+      <p class="help-block">{{ field.description|safe }}</p>
+      {% endif %}
+      {% if direct_error %}
+        <ul class="input-errors">
+        {% for e in field.errors if e is string %}
+          <li>{{ e }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
     {% if caller %}
       {{ caller(form, field, direct_error, kwargs) }}
     {% endif %}
   </div>
 {% endmacro %}
-
 
 {% macro render_header(form, text) %}
     <h3>{{ text }}</h3>
@@ -214,7 +209,7 @@
 {% endmacro %}
 
 
-{# ---------------------- Quokka CUSTOM -------------------------- #}
+{# ---------------------- Wheel CUSTOM -------------------------- #}
 {% macro format_value(value) %}
 
     {% if value|isinstance('dict') %}
